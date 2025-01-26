@@ -138,14 +138,20 @@ impl <T: Copy + PartialEq> List<T> {
                         prev.borrow_mut().next = next.clone();
                     }
                 }
-                match next.clone() {
+                match next {
                     None => {
-                        self.tail = prev.unwrap().upgrade();
+                        if prev.is_none() {
+                            self.head = None;
+                            self.tail = None;
+                        } else {
+                            self.tail = prev.unwrap().upgrade();
+                        }
                     }
                     Some(next) => {
                         next.borrow_mut().prev = prev;
                     }
                 }
+                
                 self.length -= 1;
                 return;
             }
@@ -154,8 +160,11 @@ impl <T: Copy + PartialEq> List<T> {
         println!("Not such key in the list");
     }
 
-    pub fn pop_by_position(&mut self, position : i32){
-        todo!();
+    pub fn pop_by_position(&mut self, position : u32){
+        if position > self.length as u32 {
+            println!("Position out of range");
+            return;
+        }
     }
 } 
 
@@ -231,6 +240,7 @@ mod tests {
     #[test]
     fn pop_by_key_index() {
         let mut list = List::new();
+        list.pop_by_key(1);
         list.print();  
         list.push_front(1);
         list.print();
