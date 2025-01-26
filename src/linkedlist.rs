@@ -129,7 +129,7 @@ impl <T: Copy + PartialEq> List<T> {
             if node.borrow().data == key {
                 let next = node.borrow().next.clone();
                 let prev = node.borrow().prev.clone();
-                match prev.clone() {
+                match prev.as_ref() {
                     None => {
                         self.head = next.clone();
                     }
@@ -144,7 +144,7 @@ impl <T: Copy + PartialEq> List<T> {
                             self.head = None;
                             self.tail = None;
                         } else {
-                            self.tail = prev.unwrap().upgrade();
+                            self.tail = prev.and_then(|p| p.upgrade());
                         }
                     }
                     Some(next) => {
