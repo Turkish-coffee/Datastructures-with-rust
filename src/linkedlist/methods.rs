@@ -3,7 +3,7 @@
 use crate::linkedlist::definitions::{List, Node,};
 use std::rc::Rc;
 
-impl<T: Copy> List<T> {
+impl<T: Clone> List<T> {
     // Pushes a new element to the front of the list
     pub fn push_front(&mut self, data: T) {
         let mut node = Node::new(data);
@@ -39,7 +39,7 @@ impl<T: Copy> List<T> {
                     }
                 }
                 self.length -= 1;
-                Some(head.data)
+                Some(head.data.clone())
             }
         }
     }
@@ -79,13 +79,13 @@ impl<T: Copy> List<T> {
                     }
                 };
                 self.length -= 1;
-                Some(tail.data)
+                Some(tail.data.clone())
             }
         }
     }
 }
 
-impl<T: Copy + PartialEq> List<T> {
+impl<T: Clone + PartialEq> List<T> {
     // Removes the first occurrence of the element from the list
     pub fn pop_by_key(&mut self, key : T){
         let mut current = self.head.clone();
@@ -188,7 +188,7 @@ impl<T: Copy + PartialEq> List<T> {
     }
 }
 
-impl<T: Copy + std::fmt::Debug> List<T> {
+impl<T: Clone + std::fmt::Debug> List<T> {
     // Prints the list
     pub fn print(&self) {
         let mut current = self.head.clone();

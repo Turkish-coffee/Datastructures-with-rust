@@ -3,13 +3,13 @@ use std::{
     rc::{Rc, Weak},
 };
 
-pub struct Node<T: Copy> {
+pub struct Node<T: Clone> {
     pub data: T,
     pub next: Option<Rc<RefCell<Node<T>>>>,
     pub prev: Option<Weak<RefCell<Node<T>>>>,
 }
 
-impl<T: Copy> Node<T> {
+impl<T: Clone> Node<T> {
     pub fn new(data: T) -> Self {
         Node {
             data,
@@ -20,7 +20,7 @@ impl<T: Copy> Node<T> {
 }
 
 // Implement the From trait to convert Node to Option<Rc<RefCell<Node<T>>>>
-impl<T: Copy> From<Node<T>> for Option<Rc<RefCell<Node<T>>>> {
+impl<T: Clone> From<Node<T>> for Option<Rc<RefCell<Node<T>>>> {
     fn from(node: Node<T>) -> Self {
         Some(Rc::new(RefCell::new(node)))
     }
@@ -28,13 +28,13 @@ impl<T: Copy> From<Node<T>> for Option<Rc<RefCell<Node<T>>>> {
 
 pub type NodePtr<T> = Rc<RefCell<Node<T>>>;
 
-pub struct List<T: Copy> {
+pub struct List<T: Clone> {
     pub head: Option<NodePtr<T>>,
     pub tail: Option<NodePtr<T>>,
     pub length: usize,
 }
 
-impl<T: Copy> List<T> {
+impl<T: Clone> List<T> {
     pub fn new() -> Self {
         List {
             head: None,
@@ -45,7 +45,7 @@ impl<T: Copy> List<T> {
 }
 
 // Drop implementation to avoid memory leaks
-impl<T: Copy> Drop for List<T> {
+impl<T: Clone> Drop for List<T> {
     fn drop(&mut self) {
         while let Some(_) = self.pop_back() {}
     }
