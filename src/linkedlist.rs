@@ -198,6 +198,30 @@ impl <T: Copy + PartialEq> List<T> {
             return;
         }
     }
+    pub fn update_by_key(&mut self, key : T, new_data : T){
+        let mut current = self.head.clone();
+        while let Some(node) = current.clone() {
+            if node.borrow().data == key {
+                node.borrow_mut().data = new_data;
+                return;
+            }
+            current = node.borrow().next.clone();
+        }
+        println!("Not such key in the list");
+    }
+
+    pub fn update_by_position(&mut self, position : usize, new_data : T){
+        if position >= self.length {
+            println!("Position out of range");
+            return;
+        }else {
+            let mut current = self.head.clone();
+            for _ in 0..position {
+                current = current.unwrap().borrow().next.clone();
+            }
+            current.unwrap().borrow_mut().data = new_data;
+        }
+    }
 } 
 
 
@@ -221,7 +245,6 @@ impl<T: Copy + std::fmt::Debug> List<T> {
         println!("None");
     }
 }
-
 
 
 
@@ -315,6 +338,54 @@ mod tests {
         list.pop_by_position(2);
         list.print();
         list.pop_by_position(2);
+        list.print();
+    }
+    #[test]
+    fn test_update_by_key() {
+        let mut list = List::new();
+        list.update_by_key(1, 2);
+        list.print();  
+        list.push_front(1);
+        list.print();
+        list.push_front(2);
+        list.print();
+        list.push_front(3);
+        list.print();  
+        list.push_front(4);
+        list.print();
+        list.push_front(5);
+        list.print();
+        list.update_by_key(5, 10);
+        list.print();
+        list.update_by_key(1, 10);
+        list.print();
+        list.update_by_key(3, 10);
+        list.print();
+        list.update_by_key(12345, 10);
+        list.print();
+    }
+    #[test]
+    fn test_update_by_position() {
+        let mut list = List::new();
+        list.update_by_position(2, 2);
+        list.print();  
+        list.push_front(1);
+        list.print();
+        list.push_front(2);
+        list.print();
+        list.push_front(3);
+        list.print();  
+        list.push_front(4);
+        list.print();
+        list.push_front(5);
+        list.print();
+        list.update_by_position(0, 10);
+        list.print();
+        list.update_by_position(1, 10);
+        list.print();
+        list.update_by_position(4, 10);
+        list.print();
+        list.update_by_position(20, 10);
         list.print();
     }
 }
