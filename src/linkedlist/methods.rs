@@ -202,3 +202,64 @@ impl<T: Clone + std::fmt::Debug> List<T> {
         println!("None");
     }
 }
+
+/*
+list of all the other function signatures to implement  :
+pub fn push_by_position(&mut self,  data : T, position : usize){
+    todo!();
+}
+
+pub fn count_key_occurences(&self, key : T) -> u32{
+    todo!();
+}
+
+pub fn  swap_nodes_by_position(&mut self, position1 : usize, position2 : usize){
+    todo!();
+}
+
+pub fn  swap_nodes_by_key(&mut self, key1 : T, key2 : T){
+    todo!();
+}
+
+pub fn reverse(&mut self){
+    todo!();
+}
+
+pub fn remove_duplicates(&mut self){
+    todo!();
+}
+
+pub fn sort(&mut self){
+    todo!();
+}
+
+pub fn split_by_key(&mut self, key : T) -> (List<T>, List<T>) {
+    todo!();
+}
+
+pub fn split_by_position(&mut self, position : usize) -> (List<T>, List<T>){
+    todo!();
+}
+
+pub fn merge(&mut self, other : List<T>){
+    todo!();
+}
+
+// returns a linkedlist perfroming union elementwise
+pub fn union(&self, other : List<T>) -> List<T>{
+    todo!();
+}
+
+// returns a linkedlist perfroming intersection elementwise
+pub fn intersection(&self, other : List<T>) -> List<T>{
+    todo!();
+}
+
+pub fn sublist_search(&self, other : List<T>) -> bool{
+    todo!();
+}
+
+pub fn delete_slice(&mut self, start : usize, end : usize){
+    todo!();
+}
+*/
